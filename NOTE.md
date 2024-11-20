@@ -160,3 +160,15 @@ let mut error_logs = vec![];
 - Returning a String required extra allocations on the heap
 
 - we would have been fine returning &str if we didn't expect it to have to outlive the input text (in case read large file gigabyte)
+
+
+##  Try Operator
+it is technique for error handler by it will early return
+```rs
+fn main() -> Result<(), Error> {
+    let text =fs::read_to_string("./asdf/logs.txt")?; // if error it will break auto not next line...
+    println!("{}", text.len());
+
+    Ok(())
+}
+```
