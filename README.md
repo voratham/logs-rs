@@ -3,7 +3,7 @@
 - i step by step learning each commit !
 
 ```
-ace0a64 (HEAD -> main, origin/main) chore: note each tecnique ✅ End
+ace0a64 (HEAD -> main, origin/main) chore: note each tecnique # ✅ End
 7a141d4 chore: how to use try operator
 3a0e2cf chore: refactor athernatives to nested matches
 64e9871 chore: writing data to file
