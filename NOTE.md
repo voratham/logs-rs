@@ -172,3 +172,9 @@ fn main() -> Result<(), Error> {
     Ok(())
 }
 ```
+
+
+## When to use each technique
+1. use match or 'if let' statement -> when you're ready to meaningfully deal with an error
+2. call 'unwrap()' or 'expect("why this paniced")' on the Result -> Quick debugging, or if you want to crash on an Err()
+3. Use the try operator ("?") to unwrap or propagate the Result -> When you don't have any way to handle the error in the current function !
