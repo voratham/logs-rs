@@ -85,3 +85,78 @@ fn main() {
 }
 
 ```
+
+
+
+## Example String difference
+```rs
+fn string_test(a: String, b: &String, c: &str) {}
+
+//  incase 1
+string_test(String::from("red"), &String::from("red"), "red");
+
+// incase 2
+string_test("red".to_string(), &String::from("red"), String::from("red").as_str());
+
+```
+
+## Summary type of `string` on rust
+- String 
+    - When to use
+        - when you want to take ownership of text data.
+        - when you have a string that might grow of shrink
+    - Uses memory in..
+        - STACK and HEAP
+- &String
+    - When to use
+        - Usually never
+    - Uses memory in..
+        - STACK
+    - Note: Rust automatically turns &String into sa &str for you
+- &str ( call it string slice) 
+    - When to use
+        - When you want to read all or a portion of some text owned by something else.
+    - Uses memory in..
+        - STACK
+    - Note: Refers directly to heap-allocated or data-allocated text
+
+    
+    
+## in case out of scope
+```rs
+
+fn extract_errors(text: &str) -> Vec<&str> {
+    let split_text = text.split("\n");
+
+    let mut results = vec![];
+
+    for line in split_text {
+        if line.starts_with("ERROR") {
+            results.push(line);
+        }
+    }
+
+    results
+}
+
+
+let mut error_logs = vec![];
+
+    match fs::read_to_string("logs.txt") {
+        Ok(text_that_was_read) => {
+            println!("🟢 All read file length: {}", text_that_was_read.len());
+            error_logs = extract_errors(text_that_was_read.as_str());
+        }
+        // error_logs - out of scope
+        // text_that_was_read - out of scope
+        Err(why_this_failed) => println!("🔴 Failed to read file: {}", why_this_failed),
+    }
+
+    println!("{:#?}", error_logs);
+```
+
+## if out function receives some text and we need to return  text, should we always return a String ?
+
+- Returning a String required extra allocations on the heap
+
+- we would have been fine returning &str if we didn't expect it to have to outlive the input text (in case read large file gigabyte)
